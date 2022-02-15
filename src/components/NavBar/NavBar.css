@@ -1,6 +1,8 @@
 .NavBar {
     background-color: #333;
     overflow: hidden;
+    width: 100%;
+
 }
 
 .NavBar a {
@@ -10,6 +12,7 @@
     padding: 14px 16px;
     text-decoration: none;
     font-size: 17px;
+
 }
 
 .NavBar a:hover {
@@ -20,4 +23,13 @@
 .NavBar a.active {
     background-color: #04AA6D;
     color: white;
+}
+
+.Button {
+    background-image: url(
+'http://www.web-profashion.de/templates/Ravel//image/icons/ecommerceoptimization.png');
+            background-size: cover;
+            width: 300px;
+            height: 200px;
+            font-size: 2rem;
 }
