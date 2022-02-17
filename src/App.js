@@ -3,6 +3,7 @@ import './App.css';
 import NavBar from './components/NavBar/NavBar';
 import FunctionCounter from './components/FunctionCounter/FunctionCounter';
 import ClassCounter from './components/ClassCounter/ClassCounter';
+import ItemListContainer from './components/ItemListContainer/ItemListContainer';
 
 
 function App() {
@@ -11,9 +12,10 @@ function App() {
   return (
     <div className="App">
       <NavBar />
-      <button onClick={() => setShow(!show)}>Show Button</button>
-      {show ? <FunctionCounter /> : null}
-      <ClassCounter /> 
+      <ItemListContainer />
+      <button onClick={() => setShow(!show)}>{show ? 'Show Class Counter' : 'Show Function Counter'}</button>
+      {show ? <FunctionCounter /> : <ClassCounter />}
+      
 
     </div>
   );
