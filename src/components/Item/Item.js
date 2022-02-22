@@ -1,10 +1,27 @@
 import './Item.css';
 
 const Item = ({ product }) => {
-    return ( <div class = "item">
-        <img src = {product.img}/> 
-        <h1> {product.name}</h1>
-        </div>
+    return ( 
+    <article className="CardItem">
+        <header className="Header">
+            <h2 className="ItemHeader">
+                {product.title}
+            </h2>
+        </header>
+        <picture>
+            <img src={product.thumbnail} alt={product.title} className="ItemImg"/>
+        </picture>
+        <section>
+            <p className="Info">
+                Category: {product.category}
+            </p>
+            <p className="Info">
+                Price: ${product.price}
+            </p>
+        </section>
+        <footer className="ItemFooter">
+        </footer>
+    </article>
     );
 };
 
