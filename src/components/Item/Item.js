@@ -19,7 +19,7 @@ const Item = ({product}) => {
                 </p>
             </section>           
             <footer className='ItemFooter'>
-                <Link to={`/detail/${product.id}`}>Ver detalle</Link>
+                <Link to={`/detail/${product.id}`} className="Option">Ver detalle</Link>
             </footer>
         </article>
     )
