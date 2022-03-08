@@ -11,7 +11,6 @@ const Notification = ({ message, severity }) => {
         alignItems: 'center',
         width: 'auto',
         height: 'auto',
-        // backgroundColor: severity === 'success' ? 'green' : 'red',
         padding: '10px 20px 10px 20px',
         color: 'white',
         borderRadius: '10px'

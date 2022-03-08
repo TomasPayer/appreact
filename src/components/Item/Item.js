@@ -15,11 +15,11 @@ const Item = ({product}) => {
             </picture>
             <section>
                 <p className="Info">
-                    Precio: ${product.price}
+                    Price: ${product.price}
                 </p>
             </section>           
             <footer className='ItemFooter'>
-                <Link to={`/detail/${product.id}`} className="Option">Ver detalle</Link>
+                <Link to={`/detail/${product.id}`} className="Option">View Detail</Link>
             </footer>
         </article>
     )

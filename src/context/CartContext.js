@@ -3,35 +3,41 @@ import { createContext, useState } from "react"
 const Context = createContext()
 
 export const CartContextProvider = ({ children }) => {
-    const [cart, setCart] = useState([])
+    const [products, setProducts] = useState([])
 
-    const addItem = (productToAdd, quantity) => {
-
-        const newObj = {
-            ...productToAdd,
-            quantity
-        }
-
-        if(isInCart(productToAdd.id)) {
-            //Logica de producto repetido
-        } else {
-            setCart([...cart, newObj])
-        }
-    }
-
-    const removeItem = (id) => {
-
+    const addItem = (item, quantity) => {
     }
 
     const isInCart = (id) => {
-        return cart.some(p => p.id === id)
     }
+
+    const updateItemCart = (productToAdd) => {
+    }
+
+    const addItemToCart = (productToAdd) => {
+    }
+
+    const removeItem = (id) => {
+    }
+
+    const clearCart = () => {
+    }
+
+    const getTotal = () => {
+    }
+
+    const getQuantity = () => {
+    }
+
 
     return (
         <Context.Provider value={{
-            cart,
+            products,
             addItem,
-            removeItem
+            removeItem,
+            clearCart,
+            getTotal,
+            getQuantity
             }}>
             {children}
         </Context.Provider>

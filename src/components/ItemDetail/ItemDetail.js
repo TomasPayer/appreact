@@ -27,7 +27,7 @@ const ItemDetail = ({ id, name, img, category, description, price, stock }) => {
         }
 
         addItem(productToAdd, quantity)
-        setNotification('success',`Se agrego ${name} al carrito`)
+        setNotification('success',`${name} added to cart`)
     }
  
     return (
@@ -42,19 +42,19 @@ const ItemDetail = ({ id, name, img, category, description, price, stock }) => {
             </picture>
             <section>
                 <p className="Info">
-                    Categoria: {category}
+                    Category: {category}
                 </p>
                 <p className="Info">
-                    Descripción: {description}
+                    Description: {description}
                 </p>
                 <p className="Info">
-                    Precio: {price}
+                    Price: {price}
                 </p>
             </section>           
             <footer className='ItemFooter'>
                 {
                     quantity > 0 ? 
-                        <Link to={'/cart'} className='Option'>Ir al carrito de compras</Link> :
+                        <Link to={'/cart'} className='Option'>Go to Shopping Cart</Link> :
                         <ItemCount initial={1} stock={stock} onAdd={handleOnAdd} />
                 } 
             </footer>

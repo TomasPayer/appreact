@@ -15,7 +15,7 @@ const ItemListContainer = () => {
     // const setNotification = useNotificationServices()
      
     useEffect(() => {
-        // setNotification('error', 'Bienvenido')
+        // setNotification('error', 'Welcome')
         setLoading(true)
 
         getProducts(categoryId).then(item => {
@@ -27,7 +27,7 @@ const ItemListContainer = () => {
         })
 
         setTimeout(() => {
-            setTitle('Titulo de Prueba')
+            setTitle('React App')
         }, 2000)
 
         return (() => {
@@ -40,10 +40,10 @@ const ItemListContainer = () => {
             {title}
             {
                 loading ? 
-                    <h1>Cargando...</h1> :  
+                    <h1>Loading...</h1> :  
                 products.length ? 
                     <ItemList products={products}/> : 
-                    <h1>No se encontraron productos!</h1>
+                    <h1>No products found!</h1>
             }
         </div>
     )    
