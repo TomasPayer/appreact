@@ -9,7 +9,7 @@ const CartWidget = () => {
 
     return(
         <Link to={'/cart'} className="CartWidget">
-            <img src="/images/cart.svg" alt='cart' className='CartImg'/>
+            <img src="https://ps.w.org/woo-cart-abandonment-recovery/assets/icon-256x256.png?rev=2096894" alt='cart' className='CartImg'/>
             {getQuantity()}
         </Link>
     );

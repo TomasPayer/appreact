@@ -8,12 +8,12 @@ const Cart = () => {
     const setNotification = useNotificationServices()
 
     if(products.length === 0) {
-        return <h1>No hay productos en el carrito</h1>
+        return <h1>There are no products in the cart</h1>
     }
 
     const handleRemoveItem = (id, name) => {
         removeItem(id)
-        setNotification('success', `Se removio ${name} del carrito`)
+        setNotification('success', `${name} was removed from the cart`)
     }
 
     return (
