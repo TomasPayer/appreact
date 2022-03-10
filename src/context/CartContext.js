@@ -12,6 +12,7 @@ export const CartContextProvider = ({ children }) => {
             ...item,
             quantity: quantity
         }
+
         if(!isInCart(item.id)) {
             setProducts([...products, newProduct])
         } else {
@@ -32,6 +33,7 @@ export const CartContextProvider = ({ children }) => {
 
         /*
         let isUpdated = false
+
         const productsUpdated = products.map(p => {
             if(p.id === item.id) {
                 isUpdated = true
@@ -40,6 +42,7 @@ export const CartContextProvider = ({ children }) => {
                 return {...p}
             }
         })
+
        setProducts(isUpdated ? productsUpdated : [...products, {...item, quantity}])
        */
 

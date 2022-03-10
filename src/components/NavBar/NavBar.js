@@ -1,29 +1,36 @@
 import './NavBar.css'
-import CartWidget from '../CartWidget/CartWidget'
+import { useEffect, useState, useContext} from 'react'
 import { Link, NavLink } from 'react-router-dom'
-import { useEffect, useState} from 'react'
-import { getCategories } from '../../asyncmock'
+import { getDocs, collection } from 'firebase/firestore'
+import { firestoreDb } from '../../services/firebase/firebase'
+import CartWidget from '../CartWidget/CartWidget'
+import CartContext from '../../context/CartContext'
 
-const NavBar = () => { //{ title: 'ecommerce ', color='red'}
+const NavBar = () => {
   const [categories, setCategories] = useState([])
 
+  const { products } = useContext(CartContext)
+
   useEffect(() => {
-    getCategories().then(categories => {
-      setCategories(categories)
-    })
+      getDocs(collection(firestoreDb, 'categories')).then(response => {
+        const categories = response.docs.map(cat => {
+          return { id: cat.id, ...cat.data()}
+        })
+        setCategories(categories)
+      })
   }, [])
 
   return (
       <nav className="NavBar" >
         <Link to={'/'}>
-            <h3>AppReact</h3>
+            <h3>Ecommerce</h3>
         </Link>
         <div className="Categories">
           {categories.map(cat => <NavLink key={cat.id} to={`/category/${cat.id}`} className={({ isActive }) =>
               isActive ? 'ActiveOption' : 'Option'
             }>{cat.description}</NavLink>)}
         </div>
-        <CartWidget />
+        {products.length > 0 && <CartWidget />}
       </nav>
   )
 }
