@@ -25,7 +25,7 @@ const ItemCount = ({stock = 1, initial = 1, onAdd})=> {
                        <td align="right"><button className="Option" onClick={() => increment() }>+</button></td>
                    </tr>
                    <tr>
-                       <td align="center" colSpan="5"><button className="Option" onClick={() => onAdd(quantity)}>Agregar al carrito</button></td>
+                       <td align="center" colSpan="5"><button className="Option" onClick={() => onAdd(quantity)}>Add to Shopping cart</button></td>
                    </tr>
 
                </tbody>

@@ -4,6 +4,7 @@ import ItemCount from '../ItemCount/ItemCount'
 import { Link } from 'react-router-dom'
 import CartContext from '../../context/CartContext'
 import { useNotificationServices } from '../../services/notification/NotificationServices'
+import Swal from 'sweetalert2'
 
 
 const ItemDetail = ({ id, name, img, category, description, price, stock }) => {
@@ -27,7 +28,11 @@ const ItemDetail = ({ id, name, img, category, description, price, stock }) => {
         }
 
         addItem(productToAdd, quantity)
-        setNotification('success',`${name} added to cart`)
+        setNotification (Swal.fire(
+            'Great Choice!',
+            'Your product has been added to the cart!',
+            'success'
+          ))
     }
  
     return (
