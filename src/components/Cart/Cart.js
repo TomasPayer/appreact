@@ -4,9 +4,10 @@ import Togglable from '../Togglable/Togglable'
 import ContactForm from '../ContactForm/ContactForm'
 import CartContext from '../../context/CartContext'
 import CartItem from '../CartItem/CartItem'
-import { writeBatch, getDoc, doc, addDoc, collection, Timestamp } from 'firebase/firestore'
+import { writeBatch, getDocs, collection, addDoc, Timestamp, where, query, documentId } from 'firebase/firestore'
 import { firestoreDb } from '../../services/firebase/firebase'
 import { useNotificationServices } from '../../services/notification/NotificationServices'
+import Swal from 'sweetalert2'
 
 const Cart = () => {
     const [processingOrder, setProcessingOrder] = useState(false)
@@ -17,6 +18,7 @@ const Cart = () => {
         comment: ''
     })
     const { products, clearCart, getTotal, removeItem } = useContext(CartContext)
+    
     const contactFormRef = useRef()
 
     const setNotification = useNotificationServices()
@@ -34,38 +36,42 @@ const Cart = () => {
 
             const batch = writeBatch(firestoreDb)
             const outOfStock = []
+            
+            const ids = objOrder.items.map(i => i.id)
 
-            objOrder.items.forEach(prod => {
-                getDoc(doc(firestoreDb, 'products', prod.id)).then(response => {
-                    if(response.data().stock >= prod.quantity) {
-                        batch.update(doc(firestoreDb, 'products', response.id), {
-                            stock: response.data().stock - prod.quantity
+            getDocs(query(collection(firestoreDb, 'products'),where(documentId(), 'in', ids)))
+                .then(response => {
+                    response.docs.forEach((docSnapshot) => {
+                        if(docSnapshot.data().stock >= objOrder.items.find(prod => prod.id === docSnapshot.id).quantity) {
+                            batch.update(docSnapshot.ref, { stock: docSnapshot.data().stock - objOrder.items.find(prod => prod.id === docSnapshot.id).quantity})
+                        } else {
+                            outOfStock.push({id: docSnapshot.id, ...docSnapshot.data()})
+                        }
+                    })
+                }).then(() => {
+                    if(outOfStock.length === 0) {
+                        addDoc(collection(firestoreDb, 'orders'), objOrder).then(({id}) => { 
+                            batch.commit()
+                            clearCart()
+                            setNotification('success', `The order was generated successfully, your order number is: ${id}`)
                         })
                     } else {
-                        outOfStock.push({ id: response.id, ...response.data()})    
-                    }
-                })
-            })
-
-            if(outOfStock.length === 0) {
-                addDoc(collection(firestoreDb, 'orders'), objOrder).then(({id}) => {
-                    batch.commit().then(() => {
-                        clearCart()
-                        setNotification('success', `La orden se genero exitosamente, su numero de orden es: ${id}`)
-                    })
-                }).catch(error => {
+                        outOfStock.forEach(prod => {
+                            setNotification('error', `Product ${prod.name} is out of stock`)
+                            removeItem(prod.id)
+                        })    
+                    }               
+                }).catch((error) => {
                     setNotification('error', error)
                 }).finally(() => {
                     setProcessingOrder(false)
                 })
-            } else {
-                outOfStock.forEach(prod => {
-                    setNotification('error', `El producto ${prod.name} no tiene stock disponible`)
-                    removeItem(prod.id)
-                })          
-            }
+
         } else {
-            setNotification('error', 'Debe completar los datos de contacto para generar la orden')
+             setNotification(Swal.fire({
+                icon: 'error',
+                text: 'You must complete the contact information to generate the order!',
+              }))
         }
     }
 
@@ -77,7 +83,7 @@ const Cart = () => {
         return (
             <div>
                 <h1>Cart</h1>
-                <h2>No hay productos en el carrito</h2>
+                <h2>There are no products in the cart</h2>
             </div>
         )
     }
