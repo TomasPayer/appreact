@@ -9,6 +9,7 @@ import { firestoreDb } from '../../services/firebase/firebase'
 import { useNotificationServices } from '../../services/notification/NotificationServices'
 import Swal from 'sweetalert2'
 import * as bootstrap from 'bootstrap';
+import { Link, NavLink } from 'react-router-dom'
 
 
 const Cart = () => {
@@ -87,9 +88,9 @@ const Cart = () => {
     if(products.length === 0) {
         return (
             <div>
-                <h1>Cart</h1>
-                <h2>There are no products in the cart</h2>
-            </div>
+            <h1>Cart</h1>
+            <h2>There are no products in the cart</h2>
+        </div>
         )
     }
 
