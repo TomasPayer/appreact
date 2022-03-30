@@ -39,10 +39,13 @@ const ItemDetailContainer = () => {
         <div className="ItemDetailContainer" >
             { 
                 loading ? 
-                    <h1>Loading...</h1> :
+                    <h1><button class="btn btn-primary" type="button" disabled>
+                    <span class="spinner-grow spinner-grow-sm" role="status" aria-hidden="true"></span>
+                    Loading...
+                  </button></h1> :
                 product ? 
                     <ItemDetail  {...product} /> :
-                    <h1>El producto no existe</h1> 
+                    <h1>The product does not exist</h1> 
             }
         </div>
     )    

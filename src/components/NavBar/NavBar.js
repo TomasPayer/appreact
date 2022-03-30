@@ -23,7 +23,7 @@ const NavBar = () => {
   return (
       <nav className="NavBar" >
         <Link to={'/'}>
-            <h3>Ecommerce</h3>
+            <h3>Ecommerce Store</h3>
         </Link>
         <div className="Categories">
           {categories.map(cat => <NavLink key={cat.id} to={`/category/${cat.id}`} className={({ isActive }) =>

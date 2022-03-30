@@ -27,7 +27,7 @@ const ItemListContainer = () => {
 
             setProducts(products)
         }).catch((error) => {
-            setNotification('error',`Error buscando productos: ${error}`)
+            setNotification('error',`Error searching products: ${error}`)
         }).finally(() => {
             setLoading(false)
         })
@@ -42,7 +42,10 @@ const ItemListContainer = () => {
         <div className="ItemListContainer">
             {
                 loading ? 
-                <h1>Loading...</h1> :  
+                <h1><button class="btn btn-primary" type="button" disabled>
+                <span class="spinner-grow spinner-grow-sm" role="status" aria-hidden="true"></span>
+                Loading...
+              </button></h1> :  
                 products.length ? 
                     <ItemList products={products}/> : 
                     <h1>No products found!</h1>
